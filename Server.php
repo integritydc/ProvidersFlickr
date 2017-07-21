@@ -22,7 +22,7 @@ class Server extends BaseServer
     public function urlAuthorization()
     {
         $parameters = '';
-        if(property_exists($this, 'parameters') && is_array($this->params))
+        if(property_exists($this, 'parameters') && is_array($this->parameters))
             $parameters = http_build_query($this->parameters);
 
         return 'https://www.flickr.com/services/oauth/authorize?' . $parameters;
