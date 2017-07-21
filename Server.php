@@ -21,7 +21,11 @@ class Server extends BaseServer
      */
     public function urlAuthorization()
     {
-        return 'https://www.flickr.com/services/oauth/authorize';
+        $parameters = '';
+        if(property_exists($this, 'parameters') && is_array($this->params))
+            $parameters = http_build_query($this->parameters);
+
+        return 'https://www.flickr.com/services/oauth/authorize?' . $parameters;
     }
 
     /**
@@ -104,8 +108,8 @@ class Server extends BaseServer
 
         $client = $this->createHttpClient();
 
-        $response = $client->get($url)->send();
+        $response = $client->get($url);
 
-        return $response->json();
+        return json_decode($response->getBody(),true);
     }
 }
